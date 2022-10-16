@@ -12,10 +12,9 @@ namespace DataAccessLayer.UnitOfWorks
     {
         private IDbConnection _connection;
         private IDbTransaction _transaction;
-        private
         private bool _disposed;
 
-        public UnitOfWork(IOptions<UnitOfWorkOptions> options)
+        public UnitOfWork(IOptions<DbSessingOptions> options)
         {
             _connection = new MySqlConnection(options.Value.ConnectionString);
             _connection.Open();
@@ -24,15 +23,6 @@ namespace DataAccessLayer.UnitOfWorks
         public IDbConnection Connection => _connection;
 
         public IDbTransaction Transaction => _transaction;
-
-        public TRepository GetRepository<TRepository>() where TRepository : IRepositoryBase, new()
-        {
-            var repository = new TRepository();
-            repository.Connection = Connection;
-            repository.Transaction = Transaction;
-
-            return repository;
-        }
 
         public void BeginTransaction()
         {

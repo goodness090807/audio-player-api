@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccessLayer.UnitOfWorks
 {
-    public class UnitOfWorkOptions
+    public class DbSessingOptions
     {
         public string ConnectionString { get; set; }
     }

@@ -27,7 +27,7 @@ namespace audio_play_api
             services.Configure<AppSettings>(Configuration);
 
             services.AddCloudinarySerivce()
-                .AddUnitOfWorkService(Configuration.GetSection("ConnectionString"))
+                .AddUnitOfWork(Configuration.GetSection("ConnectionString"))
                 .AddBusinessService();
 
             services.AddControllers();

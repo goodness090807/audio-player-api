@@ -29,9 +29,9 @@ namespace audio_play_api.ServiceCollectionExtensions
             return services;
         }
 
-        public static IServiceCollection AddUnitOfWorkService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddUnitOfWork(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<UnitOfWorkOptions>(configuration);
+            services.Configure<DbSessingOptions>(configuration);
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
