@@ -1,27 +1,49 @@
-﻿using Microsoft.Extensions.Options;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Text;
+using System.Data.Common;
 
 namespace DataAccessLayer.UnitOfWorks
 {
     public class DbSession : IDisposable
     {
         private Guid _id;
-        public IDbConnection Connection { get; }
+        public IDbConnection Connection { get; set; }
         public IDbTransaction Transaction { get; set; }
-        public DbSession(IOptions<DbSessingOptions> options)
+        private bool _disposed;
+        
+        public DbSession(DbConnection connection)
         {
             _id = Guid.NewGuid();
-            Connection = new MySqlConnection(options.Value.ConnectionString);
+            Connection = connection;
             Connection.Open();
         }
 
         public void Dispose()
         {
-            Connection?.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    if (Connection != null)
+                    {
+                        Connection.Dispose();
+                        Connection = null;
+                    }
+                }
+
+                _disposed = true;
+            }
+        }
+
+        ~DbSession()
+        {
+            Dispose(false);
         }
     }
 }

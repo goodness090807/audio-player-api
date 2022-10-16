@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace audio_play_api
+﻿namespace audio_play_api
 {
     public class AppSettings
     {
         public CloudinarySettingsDto CloudinarySettings { get; set; }
+        public string ConnectionString { get; set; }
 
         public class CloudinarySettingsDto
         {

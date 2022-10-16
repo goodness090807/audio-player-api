@@ -1,54 +1,42 @@
-﻿using DataAccessLayer.Repositories;
-using Microsoft.Extensions.Options;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+﻿using System;
 
 namespace DataAccessLayer.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private IDbConnection _connection;
-        private IDbTransaction _transaction;
+        private readonly DbSession _dbSession;
         private bool _disposed;
 
-        public UnitOfWork(IOptions<DbSessingOptions> options)
+        public UnitOfWork(DbSession dbSession)
         {
-            _connection = new MySqlConnection(options.Value.ConnectionString);
-            _connection.Open();
+            _dbSession = dbSession;
         }
-
-        public IDbConnection Connection => _connection;
-
-        public IDbTransaction Transaction => _transaction;
 
         public void BeginTransaction()
         {
-            _transaction = _connection.BeginTransaction();
+            _dbSession.Transaction = _dbSession.Connection.BeginTransaction();
         }
 
         public void Commit()
         {
             try
             {
-                _transaction.Commit();
+                _dbSession.Transaction.Commit();
             }
             catch
             {
-                _transaction.Rollback();
+                _dbSession.Transaction.Rollback();
                 throw;
             }
             finally
             {
-                _transaction.Dispose();
+                _dbSession.Transaction.Dispose();
             }
         }
 
         public void Rollback()
         {
-            _transaction.Rollback();
+            _dbSession.Transaction.Rollback();
         }
 
         public void Dispose()
@@ -63,17 +51,13 @@ namespace DataAccessLayer.UnitOfWorks
             {
                 if (disposing)
                 {
-                    if (_transaction != null)
+                    if (_dbSession.Transaction != null)
                     {
-                        _transaction.Dispose();
-                        _transaction = null;
-                    }
-                    if (_connection != null)
-                    {
-                        _connection.Dispose();
-                        _connection = null;
+                        _dbSession.Transaction.Dispose();
+                        _dbSession.Transaction = null;
                     }
                 }
+                
                 _disposed = true;
             }
         }

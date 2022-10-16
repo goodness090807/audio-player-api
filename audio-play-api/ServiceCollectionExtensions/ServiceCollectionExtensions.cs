@@ -1,13 +1,12 @@
 ﻿using BussinessLayer.ExternalServices.Cloudinary;
+using BussinessLayer.Services.Audio;
 using CloudinaryDotNet;
+using DataAccessLayer.Repositories.Audio;
 using DataAccessLayer.UnitOfWorks;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using System.Data.Common;
 
 namespace audio_play_api.ServiceCollectionExtensions
 {
@@ -15,7 +14,7 @@ namespace audio_play_api.ServiceCollectionExtensions
     {
         public static IServiceCollection AddCloudinarySerivce(this IServiceCollection services)
         {
-            services.AddSingleton(sp =>
+            services.AddScoped(sp =>
             {
                 var options = sp.GetRequiredService<IOptions<AppSettings>>().Value;
 
@@ -29,10 +28,14 @@ namespace audio_play_api.ServiceCollectionExtensions
             return services;
         }
 
-        public static IServiceCollection AddUnitOfWork(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddUnitOfWork(this IServiceCollection services, string connectionString)
         {
-            services.Configure<DbSessingOptions>(configuration);
+            services.AddScoped<DbConnection>(sp => 
+            {
+                return new MySqlConnection(connectionString);
+            });
 
+            services.AddScoped<DbSession>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
@@ -41,7 +44,14 @@ namespace audio_play_api.ServiceCollectionExtensions
         public static IServiceCollection AddBusinessService(this IServiceCollection services)
         {
             services.AddScoped<ICloudinaryService, CloudinaryService>();
+            services.AddScoped<IAudioService, AudioService>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddRepository(this IServiceCollection services)
+        {
+            services.AddScoped<IAudioRepository, AudioRepository>();
             return services;
         }
     }
