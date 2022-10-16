@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>audio_play_api</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BussinessLayer\BussinessLayer.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+  </ItemGroup>
+
+
+</Project>
