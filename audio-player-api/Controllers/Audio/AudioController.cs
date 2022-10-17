@@ -1,5 +1,5 @@
-﻿using audio_play_api.Controllers.Audio.Models.Dtos;
-using audio_play_api.Controllers.Audio.Models.Params;
+﻿using audio_player_api.Controllers.Audio.Models.Dtos;
+using audio_player_api.Controllers.Audio.Models.Params;
 using BussinessLayer.ExternalServices.Cloudinary;
 using BussinessLayer.Services.Audio;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace audio_play_api.Controllers.Audio
+namespace audio_player_api.Controllers.Audio
 {
     public class AudioController : BaseController
     {

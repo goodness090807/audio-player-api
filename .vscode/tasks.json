@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/audio-play-api/audio-play-api.csproj",
+                "${workspaceFolder}/audio-player-api/audio-player-api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/audio-play-api/audio-play-api.csproj",
+                "${workspaceFolder}/audio-player-api/audio-player-api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/audio-play-api/audio-play-api.csproj"
+                "${workspaceFolder}/audio-player-api/audio-player-api.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace audio_play_api.Controllers.Audio.Models.Dtos
+namespace audio_player_api.Controllers.Audio.Models.Dtos
 {
     public class AudioDetailDto
     {

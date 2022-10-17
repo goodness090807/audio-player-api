@@ -1,4 +1,4 @@
-﻿namespace audio_play_api.Controllers.Audio.Models.Params
+﻿namespace audio_player_api.Controllers.Audio.Models.Params
 {
     public class GetAudiosParam
     {

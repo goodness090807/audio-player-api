@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace audio_play_api.Controllers
+namespace audio_player_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

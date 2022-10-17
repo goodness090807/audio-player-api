@@ -4,23 +4,21 @@ using CloudinaryDotNet;
 using DataAccessLayer.Repositories.Audio;
 using DataAccessLayer.UnitOfWorks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
 
-namespace audio_play_api.ServiceCollectionExtensions
+namespace audio_player_api.ServiceCollectionExtensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddCloudinarySerivce(this IServiceCollection services)
+        public static IServiceCollection AddCloudinarySerivce(this IServiceCollection services, AppSettings.CloudinarySettingsDto cloudinarySettings)
         {
             services.AddScoped(sp =>
             {
-                var options = sp.GetRequiredService<IOptions<AppSettings>>().Value;
-
-                var account = new Account(options.CloudinarySettings.CloudName,
-                    options.CloudinarySettings.APIKey,
-                    options.CloudinarySettings.APISecret);
+                var account = new Account(
+                    cloudinarySettings.CloudName,
+                    cloudinarySettings.APIKey,
+                    cloudinarySettings.APISecret);
 
                 return new Cloudinary(account);
             });

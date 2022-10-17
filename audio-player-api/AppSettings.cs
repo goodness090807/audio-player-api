@@ -1,4 +1,4 @@
-﻿namespace audio_play_api
+﻿namespace audio_player_api
 {
     public class AppSettings
     {

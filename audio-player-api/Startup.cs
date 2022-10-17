@@ -1,14 +1,16 @@
-using audio_play_api.ServiceCollectionExtensions;
+using audio_player_api.ServiceCollectionExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace audio_play_api
+namespace audio_player_api
 {
     public class Startup
     {
+        private readonly string _corsPolicyName = "AllowDevelopAndProductionDomain";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,15 +21,15 @@ namespace audio_play_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(option => option.AddPolicy("AllowEveryThing",
-               builder => builder.AllowAnyOrigin()
+            services.AddCors(option => option.AddPolicy(_corsPolicyName,
+               builder => builder.WithOrigins("http://localhost:3000/")
                                  .AllowAnyMethod()
                                  .AllowAnyHeader()));
 
             services.Configure<AppSettings>(Configuration);
 
-            services.AddCloudinarySerivce()
-                .AddUnitOfWork(Configuration.GetSection("ConnectionString").Value)
+            services.AddCloudinarySerivce(Configuration.GetSection("CloudinarySettings").Get<AppSettings.CloudinarySettingsDto>())
+                .AddUnitOfWork(Configuration["ConnectionString"])
                 .AddRepository()
                 .AddBusinessService();
 
@@ -46,7 +48,7 @@ namespace audio_play_api
 
             app.UseRouting();
 
-            app.UseCors("AllowEveryThing");
+            app.UseCors(_corsPolicyName);
 
             app.UseAuthorization();
 

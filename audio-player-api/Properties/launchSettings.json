@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "audio_play_api": {
+    "audio_player_api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

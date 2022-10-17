@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>audio_play_api</RootNamespace>
+    <RootNamespace>audio_player_api</RootNamespace>
     <UserSecretsId>cdf7abe2-74ff-4393-95c5-85b2b95dfd79</UserSecretsId>
   </PropertyGroup>
 

@@ -1,4 +1,4 @@
-﻿namespace audio_play_api.Controllers.Audio.Models.Dtos
+﻿namespace audio_player_api.Controllers.Audio.Models.Dtos
 {
     public class GetAudiosDto
     {
