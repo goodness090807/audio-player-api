@@ -15,19 +15,23 @@ namespace DataAccessLayer.Repositories.Audio
             _dbSession = dbSession;
         }
 
-        public async Task<IEnumerable<(int id, string name, string url)>> GetAudiosAsync()
+        public async Task<IEnumerable<(int id, string name, string description, string audioUrl, string imageUrl)>> GetAudiosAsync((int offset, int limit) pagination)
         {
             var strSQL = @"
-                SELECT id, name, url FROM `audio_service`.`user_audios`";
+                SELECT id, name, description, audio_url, image_url FROM `audio_service`.`user_audios` limit @Offset, @Limit";
 
-            return await _dbSession.Connection.QueryAsync<(int id, string name, string url)>(strSQL);
+            return await _dbSession.Connection.QueryAsync<(int id, string name, string description, string audioUrl, string imageUrl)>(strSQL, new
+            {
+                Offset = pagination.offset,
+                Limit = pagination.limit
+            });
         }
 
         public async Task<IEnumerable<(int id, string name, string url)>> GetUserAudiosAsync(int userId)
         {
             var strSQL = @"
                 SELECT
-                    id, name, url
+                    id, name, audio_url
                 FROM
                     `audio_service`.`user_audios`";
 

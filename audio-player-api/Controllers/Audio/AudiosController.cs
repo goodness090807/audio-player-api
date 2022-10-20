@@ -9,25 +9,27 @@ using System.Threading.Tasks;
 
 namespace audio_player_api.Controllers.Audio
 {
-    public class AudioController : BaseController
+    public class AudiosController : BaseController
     {
         private readonly ICloudinaryService _cloudinaryService;
         private readonly IAudioService _audioService;
 
-        public AudioController(ICloudinaryService cloudinaryService, IAudioService audioService)
+        public AudiosController(ICloudinaryService cloudinaryService, IAudioService audioService)
         {
             _cloudinaryService = cloudinaryService;
             _audioService = audioService;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<GetAudiosDto>> GetAudiosAsync()
+        public async Task<IEnumerable<GetAudiosDto>> GetAudiosAsync([FromQuery] GetAudiosParam getAudiosParam)
         {
-            return (await _audioService.GetAudiosAsync()).Select(x => new GetAudiosDto
+            return (await _audioService.GetAudiosAsync(getAudiosParam.Page, getAudiosParam.PageSize)).Select(x => new GetAudiosDto
             {
                 Id = x.id,
                 Name = x.name,
-                Url = x.url
+                Description = x.description,
+                AudioUrl = x.audioUrl,
+                ImageUrl = x.imageUrl
             });
         }
 

@@ -1,10 +1,8 @@
-﻿namespace audio_player_api.Controllers.Audio.Models.Params
+﻿using audio_player_api.Utils;
+
+namespace audio_player_api.Controllers.Audio.Models.Params
 {
-    public class GetAudiosParam
+    public class GetAudiosParam : PaginationParams
     {
-        public class Query
-        {
-            public int UserId { get; set; }
-        }
     }
 }

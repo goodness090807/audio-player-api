@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DataAccessLayer.Repositories.Audio;
 using DataAccessLayer.UnitOfWorks;
+using DataAccessLayer.Utils;
 
 namespace BussinessLayer.Services.Audio
 {
@@ -16,9 +17,9 @@ namespace BussinessLayer.Services.Audio
             _audioRepository = audioRepository;
         }
         
-        public async Task<IEnumerable<(int id, string name, string url)>> GetAudiosAsync()
+        public async Task<IEnumerable<(int id, string name, string description, string audioUrl, string imageUrl)>> GetAudiosAsync(int page, int pageSize)
         {
-            return await _audioRepository.GetAudiosAsync();
+            return await _audioRepository.GetAudiosAsync(PaginationHelper.GetOffsetAndLimit(page, pageSize));
         }
     }
 }

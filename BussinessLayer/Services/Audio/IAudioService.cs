@@ -5,6 +5,6 @@ namespace BussinessLayer.Services.Audio
 {
     public interface IAudioService
     {
-        Task<IEnumerable<(int id, string name, string url)>> GetAudiosAsync();
+        Task<IEnumerable<(int id, string name, string description, string audioUrl, string imageUrl)>> GetAudiosAsync(int page, int pageSize);
     }
 }

@@ -22,7 +22,7 @@ namespace audio_player_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(option => option.AddPolicy(_corsPolicyName,
-               builder => builder.WithOrigins("http://localhost:3000/")
+               builder => builder.WithOrigins("http://localhost:3000", "https://audio-player-beta.vercel.app")
                                  .AllowAnyMethod()
                                  .AllowAnyHeader()));
 
